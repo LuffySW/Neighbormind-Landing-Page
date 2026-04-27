@@ -10,7 +10,7 @@ export default function Hero() {
         className="absolute inset-0 opacity-40 grayscale group-hover:grayscale-0 transition-all duration-1000"
       >
         <img 
-          src="/src/img/hero/IMG_0514.webp" 
+          src="/img/hero/IMG_0514.webp" 
           alt="Neighbormind Premium Streetwear Collection" 
           className="w-full h-full object-cover object-center"
           referrerPolicy="no-referrer"

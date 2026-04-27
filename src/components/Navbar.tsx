@@ -44,7 +44,7 @@ export default function Navbar({ activePage, setActivePage }: NavbarProps) {
           onClick={(e) => handleNavClick(e as any, navLinks[0])}
           className="font-black text-2xl text-white tracking-tighter uppercase font-display cursor-pointer flex items-center gap-3"
         >
-          <img src="/src/img/logo/Transparent logo-R (1).webp" alt="Neighbormind Logo" className="h-10 object-contain drop-shadow-md filter brightness-0 invert" />
+          <img src="/img/logo/Transparent logo-R (1).webp" alt="Neighbormind Logo" className="h-10 object-contain drop-shadow-md filter brightness-0 invert" />
           <span className="hidden sm:inline-block pt-1">NEIGHBORMIND.</span>
         </motion.button>
 

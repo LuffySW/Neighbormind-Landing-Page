@@ -17,7 +17,7 @@ export default function Footer({ setActivePage }: FooterProps) {
               onClick={() => { setActivePage('home'); window.scrollTo(0,0); }}
               className="font-black text-brand-red tracking-tighter uppercase text-4xl font-display cursor-pointer hover:scale-[1.02] transition-transform flex items-center gap-4 mb-8"
             >
-              <img src="/src/img/logo/Transparent logo-R (1).webp" alt="Neighbormind Logo" className="h-16 object-contain filter brightness-0 invert opacity-100" />
+              <img src="/img/logo/Transparent logo-R (1).webp" alt="Neighbormind Logo" className="h-16 object-contain filter brightness-0 invert opacity-100" />
               <span>NEIGHBORMIND.</span>
             </button>
             <p className="text-sm font-light leading-relaxed max-w-sm mb-8 text-zinc-400">
