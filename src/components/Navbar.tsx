@@ -58,7 +58,7 @@ export default function Navbar({ activePage, setActivePage }: NavbarProps) {
               animate={{ opacity: 1, y: 0 }}
               transition={{ delay: 0.1 + idx * 0.1 }}
               onClick={(e) => handleNavClick(e, link)}
-              className={`group relative text-[11px] font-bold uppercase tracking-widest transition-colors ${(activePage === 'home' && link.name === 'Home') || (activePage === 'contact' && link.name === 'Contact')
+              className={`group relative text-[11px] font-bold uppercase tracking-widest transition-colors transform-gpu ${(activePage === 'home' && link.name === 'Home') || (activePage === 'contact' && link.name === 'Contact')
                   ? 'text-brand-red'
                   : 'text-zinc-400 hover:text-white'
                 }`}
@@ -122,7 +122,7 @@ export default function Navbar({ activePage, setActivePage }: NavbarProps) {
         <motion.div 
           animate={{ x: ["0%", "-50%"] }}
           transition={{ repeat: Infinity, duration: 25, ease: "linear" }}
-          className="whitespace-nowrap flex items-center flex-nowrap min-w-max"
+          className="whitespace-nowrap flex items-center flex-nowrap min-w-max transform-gpu will-change-transform"
         >
           {[...Array(10)].map((_, i) => (
             <span key={i} className="text-[10px] font-black uppercase tracking-[0.2em] text-white px-6">

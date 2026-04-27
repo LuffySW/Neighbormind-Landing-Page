@@ -79,9 +79,9 @@ export default function Contact() {
                 href={social.url}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="group relative bg-white/5 border border-white/10 p-6 md:p-8 flex items-center justify-between hover:bg-brand-red transition-all duration-500 overflow-hidden"
+                className="group relative bg-white/5 border border-white/10 p-6 md:p-8 flex items-center justify-between hover:bg-brand-red transition-all duration-500 overflow-hidden transform-gpu will-change-transform"
               >
-                <div className="absolute inset-0 bg-gradient-to-r from-brand-red/0 via-white/10 to-transparent -translate-x-full group-hover:translate-x-[200%] transition-transform duration-1000 ease-in-out" />
+                <div className="absolute inset-0 bg-gradient-to-r from-brand-red/0 via-white/10 to-transparent -translate-x-full group-hover:translate-x-[200%] transition-transform duration-1000 ease-in-out transform-gpu will-change-transform" />
                 
                 <div className="flex items-center gap-6 relative z-10">
                   <div className="text-zinc-500 group-hover:text-white transition-colors duration-500">

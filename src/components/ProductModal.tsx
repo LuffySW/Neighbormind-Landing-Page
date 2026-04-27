@@ -32,7 +32,7 @@ export default function ProductModal({ product, onClose }: ProductModalProps) {
                 layoutId={`img-${product.id}`}
                 src={product.img} 
                 alt={product.name}
-                className={`w-full h-full object-cover transition-opacity duration-1000 ${product.hoverImg ? 'group-hover:opacity-0' : ''}`}
+                className={`w-full h-full object-cover transition-opacity duration-1000 transform-gpu ${product.hoverImg ? 'group-hover:opacity-0' : ''}`}
                 referrerPolicy="no-referrer"
                 loading="lazy"
                 decoding="async"
@@ -41,7 +41,7 @@ export default function ProductModal({ product, onClose }: ProductModalProps) {
                 <img 
                   src={product.hoverImg} 
                   alt={`${product.name} back`}
-                  className="absolute inset-0 w-full h-full object-cover opacity-0 group-hover:opacity-100 transition-all duration-1000 group-hover:scale-105"
+                  className="absolute inset-0 w-full h-full object-cover opacity-0 group-hover:opacity-100 transition-all duration-1000 group-hover:scale-105 transform-gpu will-change-transform"
                   referrerPolicy="no-referrer"
                   loading="lazy"
                   decoding="async"
@@ -115,7 +115,7 @@ export default function ProductModal({ product, onClose }: ProductModalProps) {
                   href="https://shopee.co.id/Neighbormind" 
                   target="_blank" 
                   rel="noopener noreferrer"
-                  className="group relative w-full bg-[#EE4D2D] text-white py-6 flex items-center justify-center gap-4 font-black uppercase tracking-[0.3em] text-[11px] overflow-hidden"
+                  className="group relative w-full bg-[#EE4D2D] text-white py-6 flex items-center justify-center gap-4 font-black uppercase tracking-[0.3em] text-[11px] overflow-hidden transform-gpu"
                 >
                   <span className="relative z-10 flex items-center gap-3">
                     <ShoppingBag className="w-5 h-5 group-hover:scale-110 transition-transform" />
