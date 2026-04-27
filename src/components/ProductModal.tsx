@@ -61,9 +61,16 @@ export default function ProductModal({ product, onClose }: ProductModalProps) {
                   <h2 className="text-5xl font-black uppercase font-display tracking-tighter leading-none mb-3 italic">
                     {product.name}
                   </h2>
-                  <p className="text-brand-red font-black tracking-[0.3em] uppercase text-xs">
-                    Retail {product.price}
-                  </p>
+                  <div className="flex items-center gap-3">
+                    <p className="text-brand-red font-black tracking-[0.3em] uppercase text-xs">
+                      Retail {product.price}
+                    </p>
+                    {product.originalPrice && (
+                      <p className="text-zinc-400 font-medium tracking-widest line-through text-xs">
+                        {product.originalPrice}
+                      </p>
+                    )}
+                  </div>
                 </motion.div>
                 <button 
                   onClick={onClose}
@@ -89,7 +96,7 @@ export default function ProductModal({ product, onClose }: ProductModalProps) {
                 >
                   <div>
                     <p className="text-[9px] font-black uppercase tracking-widest text-zinc-300 mb-2 font-sans text-right">Collection</p>
-                    <p className="text-[11px] font-black uppercase tracking-tighter text-right">{product.id === 'greed' ? '7 Deadly Sins' : 'Essential 01'}</p>
+                    <p className="text-[11px] font-black uppercase tracking-tighter text-right">{product.collection}</p>
                   </div>
                   <div className="border-l border-zinc-100 pl-8">
                     <p className="text-[9px] font-black uppercase tracking-widest text-zinc-300 mb-2 font-sans">Craftsmanship</p>

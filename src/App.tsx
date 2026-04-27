@@ -29,9 +29,9 @@ export default function App() {
             transition={{ duration: 0.6 }}
           >
             <Hero />
-            <main className="max-w-7xl mx-auto md:grid md:grid-cols-12 md:gap-0 border-x border-zinc-200 bg-white">
-              <Philosophy />
+            <main className="max-w-7xl mx-auto border-x border-zinc-200 bg-white flex flex-col">
               <Lineup onSelectProduct={setSelectedProduct} />
+              <Philosophy />
             </main>
           </motion.div>
         ) : (
