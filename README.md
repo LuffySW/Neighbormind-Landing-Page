@@ -1,5 +1,5 @@
 <div align="center">
-  <img src="./src/img/logo/Transparent logo-R (1).webp" alt="Neighbormind Logo" width="200" />
+  <img src="public\img\logo\Transparent logo-R (1).webp" alt="Neighbormind Logo" width="200" />
   <h1>NEIGHBORMIND</h1>
   <p><strong>Clothing brand fighting social stereotypes — Mind Over Stereotype.</strong></p>
 </div>
