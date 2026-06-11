@@ -1,142 +1,148 @@
-import { motion, AnimatePresence } from 'motion/react';
+import { motion, AnimatePresence, useScroll, useTransform } from 'motion/react';
 import { X, ShoppingBag } from 'lucide-react';
 import { Product } from '../types';
+import { useRef, useEffect } from 'react';
 
 interface ProductModalProps {
   product: Product | null;
   onClose: () => void;
 }
 
+function ProductModalContent({ product, onClose }: { product: Product, onClose: () => void, key?: string }) {
+  const containerRef = useRef<HTMLDivElement>(null);
+  
+  const { scrollYProgress } = useScroll({
+    container: containerRef,
+  });
+  
+  const yImage = useTransform(scrollYProgress, [0, 1], ['0%', '50%']);
+  const opacityImage = useTransform(scrollYProgress, [0, 0.5], [1, 0.3]);
+
+  useEffect(() => {
+    document.body.style.overflow = 'hidden';
+    return () => {
+      document.body.style.overflow = 'unset';
+    };
+  }, []);
+
+  return (
+    <motion.div 
+      initial={{ opacity: 0, y: 50 }}
+      animate={{ opacity: 1, y: 0 }}
+      exit={{ opacity: 0, y: 50 }}
+      transition={{ duration: 0.5, ease: [0.22, 1, 0.36, 1] }}
+      className="fixed inset-0 z-[100] bg-brand-beige overflow-y-auto"
+      ref={containerRef}
+    >
+      {/* Close Button */}
+      <button 
+        onClick={onClose}
+        className="fixed top-8 right-8 z-[110] bg-white/80 backdrop-blur-md p-4 rounded-full shadow-2xl hover:bg-brand-red hover:text-white transition-all group border border-zinc-200"
+      >
+        <X className="w-6 h-6 group-hover:rotate-90 transition-transform" />
+      </button>
+
+      {/* Hero Section with Parallax */}
+      <div className="relative h-[80vh] w-full overflow-hidden bg-zinc-900">
+        <motion.div 
+          style={{ y: yImage, opacity: opacityImage }}
+          className="absolute inset-0 w-full h-full will-change-transform"
+        >
+          <img 
+            src={product.img} 
+            alt={product.name}
+            className="w-full h-full object-cover opacity-80"
+            loading="eager"
+          />
+        </motion.div>
+        
+        {/* Title Overlay */}
+        <div className="absolute inset-0 flex flex-col items-center justify-center bg-gradient-to-t from-brand-beige via-transparent to-transparent">
+          <motion.div 
+            initial={{ opacity: 0, y: 30 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ delay: 0.3, duration: 0.8 }}
+            className="text-center px-4"
+          >
+            <h2 className="text-7xl md:text-9xl font-black uppercase font-display tracking-tighter text-white drop-shadow-2xl mb-4 italic">
+              {product.name}
+            </h2>
+            <p className="text-white/80 font-black tracking-[0.4em] uppercase text-sm md:text-base">
+              {product.collection}
+            </p>
+          </motion.div>
+        </div>
+      </div>
+
+      {/* Story & Details Section */}
+      <div className="max-w-5xl mx-auto px-6 py-20 bg-brand-beige relative z-10">
+        <div className="grid grid-cols-1 md:grid-cols-12 gap-16">
+          
+          {/* Left Sidebar: Product Info */}
+          <div className="md:col-span-4 flex flex-col gap-12">
+            <div className="sticky top-12">
+              <div className="mb-12">
+                <p className="text-[10px] font-black uppercase tracking-[0.4em] text-zinc-400 mb-2">Retail Price</p>
+                <div className="flex items-center gap-3">
+                  <p className="text-2xl font-black tracking-widest text-brand-red">
+                    {product.price}
+                  </p>
+                  {product.originalPrice && (
+                    <p className="text-zinc-400 font-medium tracking-widest line-through text-sm">
+                      {product.originalPrice}
+                    </p>
+                  )}
+                </div>
+              </div>
+
+              <a 
+                href="https://shopee.co.id/Neighbormind" 
+                target="_blank" 
+                rel="noopener noreferrer"
+                className="group w-full bg-[#EE4D2D] text-white py-6 flex items-center justify-center gap-4 font-black uppercase tracking-[0.3em] text-[11px] hover:bg-orange-600 transition-colors shadow-xl"
+              >
+                <ShoppingBag className="w-5 h-5 group-hover:scale-110 transition-transform" />
+                Acquire Piece
+              </a>
+            </div>
+          </div>
+
+          {/* Right Content: The Story */}
+          <div className="md:col-span-8">
+            {product.story ? (
+              <motion.div 
+                initial={{ opacity: 0, y: 20 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true, margin: "-100px" }}
+                transition={{ duration: 0.8 }}
+                className="story-content"
+                dangerouslySetInnerHTML={{ __html: product.story }}
+              />
+            ) : (
+              <motion.div 
+                initial={{ opacity: 0, y: 20 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true, margin: "-100px" }}
+                transition={{ duration: 0.8 }}
+              >
+                <h3 className="text-3xl font-black mb-6 uppercase tracking-tighter italic">The Blueprint</h3>
+                <p className="text-xl text-zinc-600 leading-relaxed font-light font-serif">
+                  {product.longDesc}
+                </p>
+              </motion.div>
+            )}
+          </div>
+        </div>
+      </div>
+    </motion.div>
+  );
+}
+
 export default function ProductModal({ product, onClose }: ProductModalProps) {
   return (
     <AnimatePresence>
       {product && (
-        <div className="fixed inset-0 z-[100] flex items-center justify-center p-6 md:p-12 overflow-hidden">
-          <motion.div 
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            exit={{ opacity: 0 }}
-            onClick={onClose}
-            className="absolute inset-0 bg-brand-dark/90 backdrop-blur-xl"
-          />
-          <motion.div 
-            initial={{ opacity: 0, y: 100, scale: 0.9 }}
-            animate={{ opacity: 1, y: 0, scale: 1 }}
-            exit={{ opacity: 0, y: 50, scale: 0.9 }}
-            transition={{ type: "spring", damping: 30, stiffness: 300 }}
-            className="relative bg-brand-beige w-full max-w-6xl max-h-[90vh] overflow-hidden flex flex-col md:flex-row shadow-2xl border border-white/10"
-          >
-            {/* Modal Image area */}
-            <div className="w-full md:w-3/5 bg-zinc-200 relative group overflow-hidden h-[450px] md:h-auto">
-              <motion.img 
-                layoutId={`img-${product.id}`}
-                src={product.img} 
-                alt={product.name}
-                className={`w-full h-full object-cover transition-opacity duration-1000 transform-gpu ${product.hoverImg ? 'group-hover:opacity-0' : ''}`}
-                referrerPolicy="no-referrer"
-                loading="lazy"
-                decoding="async"
-              />
-              {product.hoverImg && (
-                <img 
-                  src={product.hoverImg} 
-                  alt={`${product.name} back`}
-                  className="absolute inset-0 w-full h-full object-cover opacity-0 group-hover:opacity-100 transition-all duration-1000 group-hover:scale-105 transform-gpu will-change-transform"
-                  referrerPolicy="no-referrer"
-                  loading="lazy"
-                  decoding="async"
-                />
-              )}
-              <div className="absolute top-8 left-8 flex flex-col gap-2">
-                <div className="bg-brand-red text-brand-beige px-4 py-2 text-[10px] font-black uppercase tracking-[0.2em] shadow-xl">
-                  Exclusive Drop
-                </div>
-              </div>
-            </div>
-
-            {/* Modal Content */}
-            <div className="w-full md:w-2/5 p-10 md:p-16 flex flex-col overflow-y-auto bg-white/50 backdrop-blur-sm">
-              <div className="flex justify-between items-start mb-12">
-                <motion.div initial={{ x: -20, opacity: 0 }} animate={{ x: 0, opacity: 1 }} transition={{ delay: 0.2 }}>
-                  <h2 className="text-5xl font-black uppercase font-display tracking-tighter leading-none mb-3 italic">
-                    {product.name}
-                  </h2>
-                  <div className="flex items-center gap-3">
-                    <p className="text-brand-red font-black tracking-[0.3em] uppercase text-xs">
-                      Retail {product.price}
-                    </p>
-                    {product.originalPrice && (
-                      <p className="text-zinc-400 font-medium tracking-widest line-through text-xs">
-                        {product.originalPrice}
-                      </p>
-                    )}
-                  </div>
-                </motion.div>
-                <button 
-                  onClick={onClose}
-                  className="p-3 hover:bg-brand-red hover:text-white transition-all border border-zinc-200 hover:border-transparent group"
-                >
-                  <X className="w-6 h-6 group-hover:rotate-90 transition-transform" />
-                </button>
-              </div>
-
-              <div className="flex-1">
-                <motion.div initial={{ y: 20, opacity: 0 }} animate={{ y: 0, opacity: 1 }} transition={{ delay: 0.3 }}>
-                  <h3 className="text-[10px] font-black uppercase tracking-[0.4em] mb-6 text-zinc-400">The Blueprint</h3>
-                  <p className="text-zinc-600 leading-relaxed text-[15px] mb-12 font-light italic font-serif">
-                    "{product.longDesc}"
-                  </p>
-                </motion.div>
-
-                <motion.div 
-                  initial={{ y: 20, opacity: 0 }} 
-                  animate={{ y: 0, opacity: 1 }} 
-                  transition={{ delay: 0.4 }}
-                  className="grid grid-cols-2 gap-8 border-t border-zinc-100 pt-10"
-                >
-                  <div>
-                    <p className="text-[9px] font-black uppercase tracking-widest text-zinc-300 mb-2 font-sans text-right">Collection</p>
-                    <p className="text-[11px] font-black uppercase tracking-tighter text-right">{product.collection}</p>
-                  </div>
-                  <div className="border-l border-zinc-100 pl-8">
-                    <p className="text-[9px] font-black uppercase tracking-widest text-zinc-300 mb-2 font-sans">Craftsmanship</p>
-                    <p className="text-[11px] font-black uppercase tracking-tighter">Premium Cotton</p>
-                  </div>
-                </motion.div>
-              </div>
-
-              <motion.div 
-                initial={{ y: 20, opacity: 0 }} 
-                animate={{ y: 0, opacity: 1 }} 
-                transition={{ delay: 0.5 }}
-                className="mt-16 flex flex-col gap-6"
-              >
-                <a 
-                  href="https://shopee.co.id/Neighbormind" 
-                  target="_blank" 
-                  rel="noopener noreferrer"
-                  className="group relative w-full bg-[#EE4D2D] text-white py-6 flex items-center justify-center gap-4 font-black uppercase tracking-[0.3em] text-[11px] overflow-hidden transform-gpu"
-                >
-                  <span className="relative z-10 flex items-center gap-3">
-                    <ShoppingBag className="w-5 h-5 group-hover:scale-110 transition-transform" />
-                    Acquire Piece
-                  </span>
-                  <motion.div 
-                    className="absolute inset-0 bg-brand-dark opacity-20"
-                    initial={{ scale: 0 }}
-                    whileHover={{ scale: 2 }}
-                  />
-                </a>
-                <div className="flex justify-center gap-4">
-                  <span className="w-2 h-2 rounded-full bg-green-500 animate-pulse" />
-                  <p className="text-[8px] text-zinc-400 uppercase tracking-[0.4em] font-black">
-                    Live on Shopee Official Store
-                  </p>
-                </div>
-              </motion.div>
-            </div>
-          </motion.div>
-        </div>
+        <ProductModalContent key="product-modal" product={product} onClose={onClose} />
       )}
     </AnimatePresence>
   );

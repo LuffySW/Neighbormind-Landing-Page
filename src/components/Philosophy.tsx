@@ -25,23 +25,19 @@ export default function Philosophy() {
           <div className="w-12 h-px bg-brand-red"></div>
         </div>
 
-        <p className="text-3xl md:text-5xl lg:text-6xl leading-[1.1] md:leading-[1.1] text-white font-display font-black uppercase tracking-tighter mb-12">
-          "Neighbormind lahir dari <span className="text-brand-red italic">perpaduan</span> kata neighbor dan mind."
-        </p>
-          
-        <p className="text-lg md:text-xl leading-relaxed text-zinc-400 font-serif italic mb-16 max-w-2xl">
-          Kami mendekonstruksi gagasan bahwa ekspektasi orang lain adalah kurungan dari sebuah stereotipe.
-        </p>
+        <h3 className="text-3xl md:text-4xl lg:text-5xl leading-[1.2] text-white font-display font-black uppercase tracking-tighter mb-8 max-w-4xl">
+          Mendekonstruksi gagasan bahwa ekspektasi orang lain <span className="text-brand-red italic">adalah kurungan.</span>
+        </h3>
 
         <motion.div 
           initial={{ scaleY: 0 }}
           whileInView={{ scaleY: 1 }}
           viewport={{ once: true }}
-          className="w-px bg-zinc-800 h-24 mb-16 origin-top"
+          className="w-px bg-zinc-800 h-12 mb-6 origin-top"
         />
 
-        <p className="text-[13px] md:text-[15px] leading-loose text-zinc-500 font-light max-w-xl tracking-wide uppercase">
-          Kami hadir untuk mereka yang berani mengacuhkan norma yang ada. Jadikan setiap pakaianmu sebagai <span className="text-brand-beige font-bold">kanvas ekspresi diri</span> dan bentuk perlawanan yang elegan.
+        <p className="text-sm md:text-base leading-loose text-zinc-500 font-light max-w-lg tracking-wide uppercase">
+          Jadikan setiap pakaianmu sebagai kanvas ekspresi diri dan bentuk <span className="text-brand-beige font-bold">perlawanan elegan</span>.
         </p>
       </motion.div>
     </section>

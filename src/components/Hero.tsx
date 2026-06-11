@@ -14,6 +14,8 @@ export default function Hero() {
           alt="Neighbormind Premium Streetwear Collection" 
           className="w-full h-full object-cover object-center"
           referrerPolicy="no-referrer"
+          loading="eager"
+          fetchPriority="high"
           decoding="async"
         />
       </motion.div>
@@ -50,31 +52,11 @@ export default function Hero() {
         >
           <a 
             href="#lineup" 
-            className="group relative inline-flex justify-center items-center overflow-hidden bg-brand-red text-brand-beige px-12 py-5 font-bold uppercase tracking-widest text-sm min-w-[240px] border border-transparent"
+            className="group relative inline-flex justify-center items-center overflow-hidden bg-brand-red text-brand-beige px-12 py-5 font-bold uppercase tracking-widest text-sm min-w-[240px] border border-transparent hover:shadow-[0_0_30px_rgba(166,25,46,0.4)] transition-shadow duration-300"
           >
-            <span className="relative z-10">Explore Collection</span>
-            <motion.div 
-              className="absolute inset-0 bg-brand-dark"
-              initial={{ x: "-100%" }}
-              whileHover={{ x: 0 }}
-              transition={{ type: "spring", bounce: 0, duration: 0.4 }}
-            />
-          </a>
-          <a 
-            href="https://shopee.co.id/Neighbormind" 
-            target="_blank"
-            rel="noopener noreferrer"
-            className="group relative inline-flex justify-center items-center overflow-hidden bg-[#EE4D2D] text-white px-12 py-5 font-bold uppercase tracking-widest text-sm min-w-[240px] shadow-lg shadow-[#EE4D2D]/20 hover:shadow-[#EE4D2D]/40 transition-shadow transform-gpu"
-          >
-            <span className="relative z-10 flex items-center gap-2">
-              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="w-4 h-4"><path d="M6 2L3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4z"></path><line x1="3" y1="6" x2="21" y2="6"></line><path d="M16 10a4 4 0 0 1-8 0"></path></svg>
-              Shop on Shopee
-            </span>
-            <motion.div 
-              className="absolute inset-0 bg-white/20"
-              initial={{ scale: 0 }}
-              whileHover={{ scale: 2 }}
-              transition={{ duration: 0.4 }}
+            <span className="relative z-10 group-hover:text-white transition-colors">The Lineup</span>
+            <div 
+              className="absolute inset-0 bg-brand-dark -translate-x-full group-hover:translate-x-0 transition-transform duration-300 ease-out will-change-transform"
             />
           </a>
         </motion.div>

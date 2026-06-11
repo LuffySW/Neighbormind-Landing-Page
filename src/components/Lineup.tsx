@@ -1,13 +1,13 @@
 import { motion } from 'motion/react';
 import { ArrowRight } from 'lucide-react';
 import { Product } from '../types';
-import { products } from '../data/products';
 
 interface LineupProps {
   onSelectProduct: (product: Product) => void;
+  products: Product[];
 }
 
-export default function Lineup({ onSelectProduct }: LineupProps) {
+export default function Lineup({ onSelectProduct, products }: LineupProps) {
   const staggerContainer = {
     initial: { opacity: 0 },
     whileInView: { 
@@ -27,24 +27,22 @@ export default function Lineup({ onSelectProduct }: LineupProps) {
     <motion.div 
       key={item.id}
       variants={{
-        initial: { opacity: 0, y: 40 },
-        whileInView: { opacity: 1, y: 0, transition: { duration: 0.8, ease: [0.16, 1, 0.3, 1] } }
+        initial: { opacity: 0, y: 20 },
+        whileInView: { opacity: 1, y: 0, transition: { duration: 0.5, ease: "easeOut" } }
       }}
-      className="group relative bg-white flex flex-col h-full hover:shadow-[0_20px_50px_rgba(0,0,0,0.07)] transition-all duration-700 transform-gpu border border-zinc-100/50"
+      className="group relative bg-white flex flex-col h-full hover:shadow-2xl transition-shadow duration-500 transform-gpu border border-zinc-100/50"
     >
       <div className="aspect-[4/5] bg-zinc-100 overflow-hidden relative cursor-pointer" onClick={() => onSelectProduct(item)}>
-        <motion.img 
+        <img 
           src={item.img} 
           alt={item.name}
-          whileHover={{ scale: 1.05 }}
-          transition={{ duration: 0.8, ease: "easeOut" }}
-          className={`w-full h-full object-cover transition-opacity duration-700 transform-gpu ${item.hoverImg ? 'group-hover:opacity-0' : ''}`}
+          className={`w-full h-full object-cover transition-all duration-700 transform-gpu group-hover:scale-105 will-change-transform ${item.hoverImg ? 'group-hover:opacity-0' : ''}`}
           referrerPolicy="no-referrer"
           loading="lazy"
           decoding="async"
         />
         {item.hoverImg && (
-          <motion.img 
+          <img 
             src={item.hoverImg} 
             alt={`${item.name} Back`} 
             className="absolute inset-0 w-full h-full object-cover transition-all duration-700 opacity-0 group-hover:opacity-100 scale-105 group-hover:scale-100 transform-gpu will-change-transform"
@@ -88,7 +86,7 @@ export default function Lineup({ onSelectProduct }: LineupProps) {
           className="mt-auto w-full group/btn flex items-center justify-center gap-3 bg-brand-dark text-white py-4 text-[11px] font-black uppercase tracking-[0.3em] hover:bg-brand-red transition-colors duration-300 overflow-hidden relative"
         >
           <span className="relative z-10 flex items-center gap-2">
-            Acquire Piece <ArrowRight className="w-4 h-4 group-hover/btn:translate-x-2 transition-transform" />
+            Explore Story <ArrowRight className="w-4 h-4 group-hover/btn:translate-x-2 transition-transform" />
           </span>
           <div className="absolute inset-0 bg-white/20 translate-y-[100%] group-hover/btn:translate-y-0 transition-transform duration-300 ease-out transform-gpu will-change-transform" />
         </button>

@@ -1,6 +1,6 @@
+import React, { useState } from 'react';
 import { motion, AnimatePresence } from 'motion/react';
-import { Menu, X } from 'lucide-react';
-import { useState } from 'react';
+import { Menu, X, ShoppingBag } from 'lucide-react';
 import { PageType, NavLink } from '../types';
 
 interface NavbarProps {
@@ -29,7 +29,7 @@ export default function Navbar({ activePage, setActivePage }: NavbarProps) {
         if (el) {
           el.scrollIntoView({ behavior: 'smooth' });
         }
-      }, 50);
+      }, 800);
     } else if (link.name === 'Home') {
       window.scrollTo({ top: 0, behavior: 'smooth' });
     }
@@ -44,7 +44,7 @@ export default function Navbar({ activePage, setActivePage }: NavbarProps) {
           onClick={(e) => handleNavClick(e as any, navLinks[0])}
           className="font-black text-2xl text-white tracking-tighter uppercase font-display cursor-pointer flex items-center gap-3"
         >
-          <img src="/img/logo/Transparent logo-R (1).webp" alt="Neighbormind Logo" className="h-10 object-contain drop-shadow-md filter brightness-0 invert" />
+          <img src="/img/logo/Transparent logo-R (1).webp" alt="Neighbormind Logo" loading="eager" fetchPriority="high" decoding="async" className="h-10 object-contain drop-shadow-md filter brightness-0 invert" />
           <span className="hidden sm:inline-block pt-1">NEIGHBORMIND.</span>
         </motion.button>
 
@@ -76,6 +76,8 @@ export default function Navbar({ activePage, setActivePage }: NavbarProps) {
         <button
           className="md:hidden text-white p-2"
           onClick={() => setIsMenuOpen(!isMenuOpen)}
+          aria-label={isMenuOpen ? "Close Menu" : "Open Menu"}
+          aria-expanded={isMenuOpen}
         >
           <AnimatePresence mode="wait">
             {isMenuOpen ? (

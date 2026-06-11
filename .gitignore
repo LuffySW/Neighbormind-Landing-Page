@@ -6,3 +6,12 @@ coverage/
 *.log
 .env*
 !.env.example
+
+# Internal & Sensitive Data
+implementation_plan.md
+task.md
+walkthrough.md
+metadata.json
+extract.js
+apps/cms/execute_seed.js
+story for website/
